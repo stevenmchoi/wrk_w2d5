@@ -2,6 +2,8 @@ require_relative 'p02_hashing'
 require_relative 'p04_linked_list'
 
 class HashMap
+  include Enumerable
+
   attr_reader :count
 
   def initialize(num_buckets = 8)
@@ -22,6 +24,9 @@ class HashMap
   end
 
   def each
+    @store.each do |bucket|
+      bucket.each { |link| yield [link.key, link.val] }
+    end
   end
 
   # uncomment when you have Enumerable included
